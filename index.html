@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessment wanted for OOJS 1 skill test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #233;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        class Shape {
+
+            name;
+            sides;
+            sideLength;
+
+            constructor(name, sides, sideLength) {
+                this.name = name;
+                this.sides = sides;
+                this.sideLength = sideLength;
+                draw(sides, sideLength)
+            }
+
+            calcPerimeter() {
+                console.log(this.sides * this.sideLength)
+            }
+
+        }
+
+        const square1 = new Shape('square', 4, 200)
+        square1.calcPerimeter()
+
+
+        const triangle = new Shape('triangle', 3, 200)
+        triangle.calcPerimeter()
+
+
+        class Square extends Shape {
+
+            constructor(sideLength) {
+                super('square', 4, sideLength)
+            }
+
+            calcArea() {
+                console.log(this.sideLength * this.sideLength)
+            }
+        }
+
+        const square = new Square(200)
+        square.calcPerimeter()
+        square.calcArea()
+
+
+        function draw(sides, sideLength) {
+            const convas = document.createElement('canvas')
+            //直径
+            const dia = sides < 5 ? sideLength : sideLength * sides / Math.PI
+            convas.width = dia + 20
+            convas.height = dia + 20
+            document.body.appendChild(convas)
+            const ctx = convas.getContext('2d')
+            ctx.beginPath();
+            const initX = 10
+            const initY =  dia / 2 - sideLength / 2 + 10
+
+            // ctx.font = '10px Microsoft YaHei'
+            // ctx.textAlign = 'center'
+            // ctx.textBaseline = 'middle'
+
+            let x = initX, y = initY
+
+            for (let i = 0; i < sides; i++) {
+                /*  多边形外角和=360度=2PI 
+                    外角=2PI/sides
+
+                */
+                let radian = (2 * Math.PI) / sides * i,
+                    offsetX = sideLength * Math.sin(radian),
+                    offsetY = sideLength * Math.cos(radian)
+                x += offsetX, y += offsetY
+                ctx.lineTo(x, y);
+
+                // ctx.fillText(Math.floor(x) + '-' + Math.floor(y), x + 10, y + 10, 200)
+                // ctx.strokeText(Math.floor(x) + '-' + Math.floor(y), x + 10, y + 10, 200)
+
+                // console.log(Math.floor(x), Math.floor(y));
+            }
+
+            ctx.stroke();
+            ctx.fillStyle = '#' + Math.floor(Math.random() * (0xffffff + 1)).toString(16).padStart(6, '0')
+            ctx.fill();
+            ctx.closePath()
+        }
+
+        const polygon2 = new Shape('polygon', 800, 1)
+        const polygon3 = new Shape('polygon', 400, 2)
+        const polygon4 = new Shape('polygon', 200, 4)
+        const polygon5 = new Shape('polygon', 50, 16)
+        const polygon6 = new Shape('polygon', 10, 80)
+        const polygon7 = new Shape('polygon', 6, 800 / 6)
+        const polygon8 = new Shape('polygon', 5, 800 / 5)
+        const polygon9 = new Shape('polygon', 7, 800 / 7)
+
+    </script>
+</body>
+
+</html>
